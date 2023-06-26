@@ -152,10 +152,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f3a5f8257cb5144a813d67d6b015c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 8235121862754273579, guid: b661fbab1d5e9d344a55d3ca86f27328, type: 3}
-  powerupPrefab: {fileID: 8800793757257151724, guid: 205ac346baa540b44bb1b8d14e78f70c, type: 3}
+  bossPrefab: {fileID: 2765766720629908966, guid: 68192c380f2d2554f82aab20ab6e52d4, type: 3}
+  miniEnemyPrefabs:
+  - {fileID: 258251328654940221, guid: dbce0a0089ec21e48bcbedf6b463a8f6, type: 3}
+  - {fileID: 7854609656333953013, guid: 196bc0f1ed3f08a49ba6f704af3ea4e5, type: 3}
+  enemyPrefabs:
+  - {fileID: 8235121862754273579, guid: b661fbab1d5e9d344a55d3ca86f27328, type: 3}
+  - {fileID: 8235121862754273579, guid: 1816cc3f3b49c0541b8feb613e7fa07e, type: 3}
+  powerupPrefabs:
+  - {fileID: 8800793757257151724, guid: 205ac346baa540b44bb1b8d14e78f70c, type: 3}
+  - {fileID: 8800793757257151724, guid: 8678bcb1e56fb79429c207811fd24e1a, type: 3}
+  - {fileID: 8800793757257151724, guid: c68cf431533ef3243a7859e18349db43, type: 3}
   enemyCount: 0
   waveNumber: 1
+  bossRound: 2
 --- !u!4 &59458864
 Transform:
   m_ObjectHideFlags: 0
@@ -654,7 +664,7 @@ GameObject:
   - component: {fileID: 1951609373}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -708,7 +718,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fe05d6ceb3eb0624b965fd3db3152e67, type: 2}
+  - {fileID: 2100000, guid: 308cfc5ab642ae9439f856a33f4e3e1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -765,9 +775,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d021a16d0e0f24f9f1ed92bf66a416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPowerUp: 0
   speed: 1
   hasPowerup: 0
   powerupIndicator: {fileID: 1875617569}
+  bulletPrefab: {fileID: 7657847184377765438, guid: 6566317ac857039488b9dd76a3ac5c9f, type: 3}
 --- !u!1001 &7305732181041295649
 PrefabInstance:
   m_ObjectHideFlags: 0
