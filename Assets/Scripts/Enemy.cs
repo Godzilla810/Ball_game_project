@@ -17,10 +17,7 @@ public class Enemy : MonoBehaviour
     {
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
-
-        if (isBoss){
-            spawnManager = FindObjectsOfType<SpawnManager>()[0];
-        }
+        spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame

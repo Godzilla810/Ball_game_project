@@ -8,34 +8,35 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] miniEnemyPrefabs;
     public GameObject[] enemyPrefabs;
     public GameObject[] powerupPrefabs; 
+    private GameManager gameManager;
     private float SpawnRange = 9.0f;
     public int enemyCount;
-    public int waveNumber = 1;
+    public int waveNumber = 0;
     public int bossRound;
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(powerupPrefabs[0], GenerateSpawnPosition(), 
-        powerupPrefabs[0].transform.rotation);
-        SpawnEnemyWave(waveNumber);
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        enemyCount = FindObjectsOfType<Enemy>().Length;
-        if (enemyCount == 0){
-            waveNumber++;
-            //Spawn a boss every x number of waves
-            if (waveNumber % bossRound ==0){
-                SpawnBossWave(waveNumber);
+        if (gameManager.isGameActive){
+            enemyCount = FindObjectsOfType<Enemy>().Length;
+            if (enemyCount == 0){
+                waveNumber++;
+                //Spawn a boss every x number of waves
+                if (waveNumber % bossRound ==0){
+                    SpawnBossWave(waveNumber);
+                }
+                else{
+                    SpawnEnemyWave(waveNumber);
+                }
+                int powerupIndex = Random.Range(0, powerupPrefabs.Length);
+                Instantiate(powerupPrefabs[powerupIndex], GenerateSpawnPosition(), 
+                powerupPrefabs[powerupIndex].transform.rotation);
             }
-            else{
-                SpawnEnemyWave(waveNumber);
-            }
-            int powerupIndex = Random.Range(0, powerupPrefabs.Length);
-            Instantiate(powerupPrefabs[powerupIndex], GenerateSpawnPosition(), 
-            powerupPrefabs[powerupIndex].transform.rotation);
         }
     }
     //隨機產生位置
@@ -45,19 +46,19 @@ public class SpawnManager : MonoBehaviour
         Vector3 randomPos = new Vector3(spawnPosX, 0, spawnPosZ);
         return randomPos;
     }
+    //產生特殊敵人
     void SpawnBossWave(int currentRound){
         int miniEnemyToSpawn;
         if (bossRound != 0){
             miniEnemyToSpawn = currentRound / bossRound;
         }
-        else
-        {
+        else{
             miniEnemyToSpawn = 1;
         }
         var boss = Instantiate(bossPrefab, GenerateSpawnPosition(), bossPrefab.transform.rotation);
         boss.GetComponent<Enemy>().miniEnemySpawnCount = miniEnemyToSpawn; 
     }
-    //產生敵人
+    //產生一般敵人
     void SpawnEnemyWave(int enemiesToSpawn){
         for (int i = 0; i < enemiesToSpawn; i++){
             int enemyIndex = Random.Range(0, enemyPrefabs.Length);
@@ -65,6 +66,7 @@ public class SpawnManager : MonoBehaviour
             enemyPrefabs[enemyIndex].transform.rotation);
         }
     }
+    //產生迷你敵人
     public void SpawnMiniEnemy(int amount){
         for (int i = 0; i < amount; i++){
             int randomMini = Random.Range(0, miniEnemyPrefabs.Length);
